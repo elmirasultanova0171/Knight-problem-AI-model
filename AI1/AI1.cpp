@@ -48,16 +48,8 @@ public:
         return valid_moves;
     }
 
-    pair<int, int> result(pair<int, int> state, pair<int, int> action) {
-        return action;
-    }
-
     bool goal_test(pair<int, int> state) {
         return (state.second == n - 1) && (state.first == n - 1);
-    }
-
-    int h(Node* node) {
-        return 0;
     }
 
     pair<int, int> initial() {
@@ -91,7 +83,7 @@ Node* breadth_first_search(KnightProblem problem) {
         frontier.pop();
         explored.insert(node->state);
         for (auto action : problem.actions(node->state)) {
-            auto child_state = problem.result(node->state, action);
+            auto child_state = action;
             if (explored.find(child_state) == explored.end()) {
                 auto child_node = new Node(child_state, node);
                 if (problem.goal_test(child_state)) {
@@ -104,7 +96,7 @@ Node* breadth_first_search(KnightProblem problem) {
     return nullptr;
 }
 int main() {
-    int n = 5;
+    int n = 8;
     KnightProblem problem(n);
     auto solution_node = breadth_first_search(problem);
     if (solution_node == nullptr) {
